@@ -1,12 +1,13 @@
 package backend.utils.authentication.basic_auth;
 
+import backend.models.authentication.Register;
+import backend.repositories.authentication.RegisterRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import backend.model.authentication.Register;
-import backend.repository.authentication.RegisterRepository;
+
 import lombok.RequiredArgsConstructor;
 
 @Service

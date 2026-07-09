@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import backend.repositories.authentication.RegisterRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,15 +18,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import backend.dto.authentication.LoginRequestDTO;
-import backend.model.authentication.Client;
-import backend.model.authentication.Freelancer;
-import backend.model.authentication.Register;
-import backend.model.admin.AdminSetting;
-import backend.repository.admin.AdminSettingRepository;
-import backend.repository.authentication.ClientRepository;
-import backend.repository.authentication.FreelancerRepository;
-import backend.repository.authentication.RegisterRepository;
+import backend.dtos.authentication.LoginRequestDTO;
+import backend.models.authentication.Client;
+import backend.models.authentication.Freelancer;
+import backend.models.authentication.Register;
+import backend.models.admin.AdminSetting;
+import backend.repositories.admin.AdminSettingRepository;
+import backend.repositories.authentication.ClientRepository;
+import backend.repositories.authentication.FreelancerRepository;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

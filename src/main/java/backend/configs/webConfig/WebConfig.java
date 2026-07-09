@@ -56,7 +56,7 @@ public class WebConfig {
 	private String frontendUrl;
 	
 	@Bean 
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{	
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		return http
 				.cors(cors -> cors.configurationSource(corsConfig()))
 				.csrf(csrf -> csrf.disable())
@@ -65,7 +65,7 @@ public class WebConfig {
 				.authorizeHttpRequests(
 					rq -> rq.requestMatchers("/").permitAll()
 							.requestMatchers("/ws/**").permitAll()
-							.requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
+							.requestMatchers("/swagger-ui/index.html", "/swagger-ui/**", "/v3/api-docs", "/v3/api-docs/**").permitAll()
 							.requestMatchers(HttpMethod.POST, "/auth/register", "/auth/login", "/auth/send-code", "/auth/reset-password", "/auth/resend-code").permitAll()
 							.requestMatchers(
 								HttpMethod.GET,
@@ -96,13 +96,13 @@ public class WebConfig {
 							.requestMatchers(HttpMethod.POST, "/freelancer/*/reviews").hasAnyRole(Role.CLIENT.name())
 							.requestMatchers(HttpMethod.DELETE, "/freelancer/reviews/*").hasAnyRole(Role.FREELANCER.name())
 							// =========== CLIENT ===================
-							.requestMatchers(HttpMethod.POST, "/client/**", "/client/hire-request").hasAnyRole(Role.CLIENT.name())				
-							.requestMatchers(HttpMethod.PUT, "/client/**", "/client/*/cancel-order").hasAnyRole(Role.CLIENT.name())						
+							.requestMatchers(HttpMethod.POST, "/client/**", "/client/hire-request").hasAnyRole(Role.CLIENT.name())
+							.requestMatchers(HttpMethod.PUT, "/client/**", "/client/*/cancel-order").hasAnyRole(Role.CLIENT.name())
 							.requestMatchers(HttpMethod.GET, "/client/**").hasAnyRole(Role.CLIENT.name())
 							// =========== FREELANCER ================
 							.requestMatchers(HttpMethod.POST, "/freelancer/**").hasAnyRole(Role.FREELANCER.name())
-							.requestMatchers(HttpMethod.PUT, "/ekyc/**", "/freelancer/**", "/freelancer/project/*/accept-revision", "/freelancer/project/*/reject-revision").hasAnyRole(Role.FREELANCER.name())
-							.requestMatchers(HttpMethod.GET, "/freelancer/**", "/freelancer/*/profile/experience", "/freelancer/project/*/delivery-file", "/freelancer/project/*/requirement-file", "/freelancer/view-hire-request", "/freelancer/view-project").hasAnyRole(Role.FREELANCER.name())						
+							.requestMatchers(HttpMethod.PU/swagger-ui.htmlT, "/ekyc/**", "/freelancer/**", "/freelancer/project/*/accept-revision", "/freelancer/project/*/reject-revision").hasAnyRole(Role.FREELANCER.name())
+							.requestMatchers(HttpMethod.GET, "/freelancer/**", "/freelancer/*/profile/experience", "/freelancer/project/*/delivery-file", "/freelancer/project/*/requirement-file", "/freelancer/view-hire-request", "/freelancer/view-project").hasAnyRole(Role.FREELANCER.name())
 							.requestMatchers(HttpMethod.GET, "/ekyc/review").hasAnyRole(Role.FREELANCER.name())
 							// =========== PAYMENT ================
 							.requestMatchers(HttpMethod.POST, "/payment/freelancer/*/confirm").hasAnyRole(Role.FREELANCER.name())
@@ -111,14 +111,14 @@ public class WebConfig {
 							// =========== ADMIN ================
 							.requestMatchers(HttpMethod.GET, "/admin/**").hasAnyRole(Role.ADMIN.name())
 							.requestMatchers(HttpMethod.PUT, "/admin/**").hasAnyRole(Role.ADMIN.name())
-													  
+
 					.anyRequest().authenticated()
 					)
 				.addFilterBefore(jwtVerify(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterAfter(maintenanceModeFilter, backend.utils.authentication.jwt.JwtVerify.class)
 				.addFilterAfter(suspendedAccountFilter, MaintenanceModeFilter.class)
 				.addFilterAt(jwtLoginFilter(), UsernamePasswordAuthenticationFilter.class)
-				.oauth2Login(auth -> 
+				.oauth2Login(auth ->
 					auth.successHandler(new OAuthGoogleHandler(authGoogleHandler, frontendUrl))
 						.failureHandler((request, response, exception) -> {
 							response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

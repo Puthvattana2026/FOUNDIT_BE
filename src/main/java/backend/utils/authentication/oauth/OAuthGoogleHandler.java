@@ -6,6 +6,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Date;
 
+import backend.models.authentication.Register;
+import backend.services.authentication.OAuthGoogleHandlerService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,8 +15,6 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import backend.model.authentication.Register;
-import backend.service.authentication.OAuthGoogleHandlerService;
 import backend.utils.authentication.jwt.JwtAuthorities;
 import backend.utils.authentication.jwt.SignKey;
 import io.jsonwebtoken.Jwts;
